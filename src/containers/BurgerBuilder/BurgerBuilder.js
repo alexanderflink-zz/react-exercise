@@ -4,13 +4,14 @@ import Burger from '../../components/Burger/Burger';
 class BurgerBuilder extends Component {
 
 	state = {
-		
+		ingredients: [
+		]
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-				<Burger/>
+				<Burger ingredients={this.state.ingredients}/>
 				<div>controls</div>
 			</React.Fragment>
 		);
