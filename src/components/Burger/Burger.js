@@ -3,10 +3,10 @@ import css from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
-  let ingredients = props.ingredients.map((ingredient, i) => {
-    return [...Array(ingredient.amount)].map((_, j) => {
-      return <BurgerIngredient key={`${i}_${j}`} type={ingredient.type}/>
-    })
+  let ingredients = Object.keys(props.ingredients).map((key) => {
+    return [...Array(props.ingredients[key])].map((_, i) => {
+      return <BurgerIngredient key={`${key}_${i}`} type={key}/>
+    });
   }).reduce((arr, element) => {
     return arr.concat(element);
   }, []);
