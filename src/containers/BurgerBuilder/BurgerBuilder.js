@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const PRICE = {
 	meat: 1,
@@ -19,7 +21,8 @@ class BurgerBuilder extends Component {
 			meat: 1,
 		},
 		totalPrice: 2,
-		purchaseable: true
+		purchaseable: true,
+		purchasing: false
 	}
 
 	updatePurchaseState() {
@@ -72,6 +75,10 @@ class BurgerBuilder extends Component {
 		this.setState({ingredients, totalPrice});
 	}
 
+	purchaseHandler = () => {
+		this.setState({purchasing: true});
+	}
+
 	render() {
 
 		// figure out which ingredients are zero and should have disabled "less" buttons
@@ -83,6 +90,9 @@ class BurgerBuilder extends Component {
 		}
 		return (
 			<React.Fragment>
+				<Modal show={this.state.purchasing}>
+					<OrderSummary ingredients={this.state.ingredients}/>
+				</Modal>
 				<Burger ingredients={this.state.ingredients}/>
 				<BuildControls
 					onAdd={this.addIngredient}
@@ -90,6 +100,7 @@ class BurgerBuilder extends Component {
 					disabled={disabledInfo}
 					price={this.state.totalPrice}
 					purchaseable={this.state.purchaseable}
+					onPurchase={this.purchaseHandler}
 				/>
 			</React.Fragment>
 		);
